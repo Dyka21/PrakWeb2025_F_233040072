@@ -1,0 +1,9 @@
+Options -Indexes
+
+Options -Multiviews
+RewriteEngine On
+RewriteBase /PrakWeb2025/Pertemuan2/MVC/TemplateMVC-main/public/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [L]

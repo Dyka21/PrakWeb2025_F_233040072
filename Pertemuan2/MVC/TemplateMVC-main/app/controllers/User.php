@@ -16,7 +16,6 @@ class User extends Controller
     {
         $data["judul"] = "Detail user";
         $data['user'] = $this->model('User_model')->getUserById($id);
-
         $this->view('templates/header', $data);
         $this->view('detail', $data);
         $this->view('templates/footer');

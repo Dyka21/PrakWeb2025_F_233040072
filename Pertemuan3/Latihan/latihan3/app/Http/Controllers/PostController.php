@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
+        $posts = Post::latest()->with(['author', 'category'])->get();
         return view('posts', ['posts' => Post::all()
         ]);
     }

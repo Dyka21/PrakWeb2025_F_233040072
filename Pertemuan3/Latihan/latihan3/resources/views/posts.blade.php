@@ -5,6 +5,16 @@
 
     @foreach ($posts as $post)
         <article class="mb-8 border-b border-gray-300 pb-8">
+            @if($post->image)
+                <div class="mb-4 max-h-96 overflow-hidden rounded-lg">
+                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-full h-64 object-cover">
+                </div>
+            @else
+                <div class="mb-4 max-h-96 overflow-hidden rounded-lg">
+                    <img src="https://source.unsplash.com/1200x400?{{ $post->category->name }}" alt="Random Image" class="w-full h-64 object-cover">
+                </div>
+            @endif
+
             <h2 class="text-2xl font-bold mb-2">
                 <a href="/posts/{{ $post->slug }}" class="hover:text-blue-600 hover:underline">
                     {{ $post->title }}

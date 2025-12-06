@@ -30,7 +30,7 @@ class DashboardPostController extends Controller
         $validatedData = $request->validate([
             'title'       => 'required|max:255',
             'category_id' => 'required',
-            'image'       => 'image|file|max:2048', 
+            'image'       => 'image|file|max:2048',
             'body'        => 'required'
         ]);
 
@@ -38,9 +38,9 @@ class DashboardPostController extends Controller
             $validatedData['image'] = $request->file('image')->store('post-images', 'public');
         }
 
-        
         $validatedData['user_id'] = Auth::id();
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+        
         $slug = Str::slug($request->title);
         $originalSlug = $slug;
         $count = 1;
@@ -60,15 +60,6 @@ class DashboardPostController extends Controller
         return view('dashboard.show', ['post' => $post]);
     }
 
-    public function destroy(Post $post)
-    {
-        if ($post->image) {
-            Storage::delete($post->image);
-        }
-        Post::destroy($post->id);
-        return redirect('/dashboard')->with('success', 'Postingan berhasil dihapus!');
-    }
-
     public function edit(Post $post)
     {
         return view('dashboard.edit', [
@@ -76,7 +67,7 @@ class DashboardPostController extends Controller
             'categories' => Category::all()
         ]);
     }
-    
+
     public function update(Request $request, Post $post)
     {
         $rules = [
@@ -87,12 +78,11 @@ class DashboardPostController extends Controller
         ];
 
         $validatedData = $request->validate($rules);
-?
+
         if ($request->file('image')) {
             if ($post->image) {
                 Storage::delete($post->image);
             }
-            
             $validatedData['image'] = $request->file('image')->store('post-images', 'public');
         }
 
@@ -114,5 +104,14 @@ class DashboardPostController extends Controller
         Post::where('id', $post->id)->update($validatedData);
 
         return redirect()->route('dashboard.index')->with('success', 'Postingan berhasil diupdate!');
+    }
+
+    public function destroy(Post $post)
+    {
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
+        Post::destroy($post->id);
+        return redirect('/dashboard')->with('success', 'Postingan berhasil dihapus!');
     }
 }

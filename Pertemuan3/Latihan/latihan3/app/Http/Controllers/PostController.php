@@ -13,5 +13,14 @@ class PostController extends Controller
         return view('posts', ['posts' => Post::all()
         ]);
     }
+
+    public function show(Post $post)
+    {
+        return view('post', [
+            "title" => "Single Post",
+            "post" => $post
+        ]);
+    }
 }
+
 

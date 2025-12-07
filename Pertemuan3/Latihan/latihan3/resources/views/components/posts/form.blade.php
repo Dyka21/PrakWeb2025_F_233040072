@@ -58,8 +58,6 @@
 
         <div class="col-span-2">
             <label for="image" class="block mb-2 text-sm font-medium text-gray-900">Upload Image</label>
-            
-            {{-- PREVIEW GAMBAR LAMA (Khusus Edit) --}}
             @if($post && $post->image)
                 <div class="mb-2">
                     <img src="{{ asset('storage/' . $post->image) }}" class="w-32 h-32 object-cover rounded-lg border border-gray-300">
@@ -76,7 +74,6 @@
 
         <div class="flex items-center space-x-4 mt-4">
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">
-                {{-- Text Tombol Berubah Otomatis --}}
                 {{ $post ? 'Update Post' : 'Create Post' }}
             </button>
             
